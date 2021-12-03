@@ -5,10 +5,10 @@ The `build_ouput.sh` uses `pandoc` to build a MS Word (`docx`) or PDF file using
 ## Usage
 
 ```bash
-build/build_ouput.sh -p|--project-name <project-name> \
-    [-f|--output-format [ docx | pdf ]] \
-    [-t|--template-file <path/to/reference-file.docx>] \
-    [-o|--output-dir <path/to/output/folder/>]
+build/build_ouput.sh -p | --project-name <project-name> \
+    [-f | --output-format [ docx | pdf ]] \
+    [-t | --template-file <path/to/reference-file.docx>] \
+    [-o | --output-dir <path/to/output/folder/>]
 ```
 
 The only requiered parameter is the *project name*, that is, the name of the file (without extension) to be generated.
