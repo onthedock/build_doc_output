@@ -115,15 +115,21 @@ case $outputFormat in
        "pdf")
               outputFormat="pdf"
               pdfOptions="-V colorlinks -V urlcolor=NavyBlue -V toccolor=NavyBlue -f markdown-raw_tex"
+              
+              logger "INFO" "Using PDF options ${pdfOptions}"
        ;;
        "docx" | *)
               outputFormat="docx"
               if [[ -n "${templateFile}" ]]
               then
                      useReferenceDocument="--reference-doc=\"${templateFile}\""
+                     logger "INFO" "Using reference document ${templateFile}"
               else
                      useReferenceDocument=""
+                     logger "WARN" "Not using a reference document"
               fi
+
+              
        ;;
 esac
 
@@ -138,17 +144,17 @@ fi
 get_source_files "./"
 create_changelog "9999-changes.md"
 
-if [[ -n ${outputPath} ]]
+if [[ -n ${outputDir} ]]
 then
-       logger "INFO" "Output ${outputPath}"
+       logger "INFO" "Output ${outputDir}"
 else
-       logger "INFO" "Using local folder..."
-       outputPath="./"
+       logger "WARN" "Using local folder `PWD`"
+       outputDir="./"
 fi
 
 pandoc --from markdown --to ${outputFormat} \
        --number-sections \
-       --output ${outputPath}${projectName}.${outputFormat} \
+       --output ${outputDir}${projectName}.${outputFormat} \
        ${useReferenceDocument} \
        ${pdfOptions} \
        --table-of-contents \
