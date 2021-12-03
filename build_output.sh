@@ -2,6 +2,7 @@
 
 projectName="${1}"
 outputFormat="${2}"
+templateFile="${3}"
 
 logger() {
        logLevel=${1}
@@ -41,7 +42,12 @@ case $outputFormat in
        ;;
        "docx" | *)
        outputFormat="docx"
-       useReferenceDocument="--reference-doc=${HOME}/Templates/seat_template.docx"
+              if [[ -n "${templateFile}" ]]
+              then
+                     useReferenceDocument="--reference-doc=\"${templateFile}\""
+              else
+                     useReferenceDocument=""
+              fi
        ;;
 esac
 
