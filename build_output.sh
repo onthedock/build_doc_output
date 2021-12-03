@@ -58,8 +58,6 @@ else
        logger "ERROR" "ProjectName is required as first parameter to the script or as the env variable \$projectName"
 fi
 
-
-
 get_source_files "./"
 create_changelog "9999-changes.md"
 
