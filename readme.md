@@ -5,11 +5,13 @@ The `build_ouput.sh` uses `pandoc` to build a MS Word (`docx`) or PDF file using
 ## Usage
 
 ```bash
-build/build_ouput.sh ${projectName} [ ${outputFormat} ]
+build/build_ouput.sh -p|--project-name <project-name> \
+    [-f|--output-format [ docx | pdf ]] \
+    [-t|--template-file <path/to/reference-file.docx>] \
+    [-o|--output-dir <path/to/output/folder/>]
 ```
 
-- `${projectName}` is the name of the final document generated
-- `${outputFormat}` defaults to `.docx`. If a valid PDF generator is available, the script is able to generate a PDF file.
+The only requiered parameter is the *project name*, that is, the name of the file (without extension) to be generated.
 
 ## Requierements
 
@@ -21,11 +23,11 @@ To generate PDF output, *pandoc* requires a LaTeX engine; see [Creating a PDF](h
 
 Pandoc is able to extract style configuration from an existing MS Word file and apply the same styling to the newly created document [^1].
 
-To have the same reference document -and this, styling- for all generated documents, the template has been placed in a *shared* folder: `/home/xavi/Templates/seat_template.docx`.
-
-This location is currently *hardcoded* in the script.
+Use `--template-file path/to/reference.docx` to use the styles defined in `refrence.docx` in the generated file.
 
 ### PDF-specific configuration
+
+It is possible to pass configuration to the LaTeX engine when generating a PDF file. Those options are included in the `$pdfOptions` variable.
 
 By default, links are not highlighted in PDF documents generated using LaTeX. To enable colored links, the `$pdfOptions` variable includes [^2]:
 
@@ -39,7 +41,7 @@ To avoid backlashes to be interpreted as escape characters, `$pdfOptions` also i
 pdfOptions="... -f markdown-raw_tex"
 ```
 
-## Notable features
+## Features
 
 ### Autoinclusion of markdown files
 
