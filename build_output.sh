@@ -1,9 +1,70 @@
 #!/usr/bin/env bash
 
-projectName="${1}"
-outputFormat="${2}"
-templateFile="${3}"
-outputPath="${4}"
+parse_cli_args () {
+       while (( "$#" ))
+       do
+              case "$1" in
+                     -p|--project-name)
+                            if [ -n "$2" ] && [ ${2:0:1} != "-" ]
+                            then
+                                   projectName="${2}"
+                                   shift 2
+                            else
+                                   echo "Error: Argument for $1 is missing" >&2
+                                   exit 1
+                            fi
+                     ;;
+                     -f|--output-format)
+                            if [ -n "$2" ] && [ ${2:0:1} != "-" ]
+                            then
+                                   outputFormat="${2}"
+                                   shift 2
+                            else
+                                   echo "Error: Argument for $1 is missing" >&2
+                                   exit 1
+                            fi
+                     ;;
+                     -t|--template-file)
+                            if [ -n "$2" ] && [ ${2:0:1} != "-" ]
+                            then
+                                   templateFile="${2}"
+                                   shift 2
+                            else
+                                   echo "Error: Argument for $1 is missing" >&2
+                                   exit 1
+                            fi
+                     ;;
+                     -o|--output-dir)
+                            if [ -n "$2" ] && [ ${2:0:1} != "-" ]
+                            then
+                                   outputDir="${2}"
+                                   shift 2
+                            else
+                                   echo "Error: Argument for $1 is missing" >&2
+                                   exit 1
+                            fi
+                     ;;
+                     -t|--template-file)
+                            if [ -n "$2" ] && [ ${2:0:1} != "-" ]
+                            then
+                                   templateFile="${2}"
+                                   shift 2
+                            else
+                                   echo "Error: Argument for $1 is missing" >&2
+                                   exit 1
+                            fi
+                     ;;
+                     *|-*|--*=) # Unsupported flags
+                            echo "Error: Unsupported flag $1" >&2
+                            usage
+                            exit 1
+                     ;;
+              esac
+       done
+
+       # Set positional arguments in their proper place
+       eval set -- "$PARAMS"
+}
 
 logger() {
        logLevel=${1}
@@ -35,6 +96,8 @@ get_source_files(){
 
        echo "${arrMarkdownFiles[*]}"
 }
+
+parse_cli_args "$@"
 
 case $outputFormat in
        "pdf")
