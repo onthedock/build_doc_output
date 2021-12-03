@@ -3,6 +3,7 @@
 projectName="${1}"
 outputFormat="${2}"
 templateFile="${3}"
+outputPath="${4}"
 
 logger() {
        logLevel=${1}
@@ -61,9 +62,17 @@ fi
 get_source_files "./"
 create_changelog "9999-changes.md"
 
+if [[ -n ${outputPath} ]]
+then
+       logger "INFO" "Output ${outputPath}"
+else
+       logger "INFO" "Using local folder..."
+       outputPath="./"
+fi
+
 pandoc --from markdown --to ${outputFormat} \
        --number-sections \
-       --output $HOME/shared/${projectName}.${outputFormat} \
+       --output ${outputPath}${projectName}.${outputFormat} \
        ${useReferenceDocument} \
        ${pdfOptions} \
        --table-of-contents \
