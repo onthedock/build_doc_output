@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+usage() {
+       echo "Basic usage:"
+       echo "./build_output.sh -p <project-name>"
+       echo "Options:"
+       echo " -p | --project-name <project-name>: Name of the generated file"
+       echo " -f | --output-format [ docx | pdf ]: Format of the generated file"
+       echo "                                      Defaults to 'docx'"
+       echo " -t | --template-file <path to reference file>.docx"
+       echo "                      Contains the styles used in the generated file"
+       echo " -o | --output-dir <output-folder>"
+}
+
 parse_cli_args () {
        while (( "$#" ))
        do
@@ -119,6 +131,7 @@ if [[ -n ${projectName} ]]
 then
        logger "INFO" "Building ${projectName}.${outputFormat}..."
 else
+       usage
        logger "ERROR" "ProjectName is required as first parameter to the script or as the env variable \$projectName"
 fi
 
