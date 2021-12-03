@@ -171,3 +171,10 @@ pandoc --from markdown --to ${outputFormat} \
        ${pdfOptions} \
        --table-of-contents \
        $(get_source_files)
+
+if [[ $? == 0 ]]
+then
+       logger "INFO" "Generated file ${outputDir}${projectName}.${outputFormat}"
+else
+       logger "ERROR" "Error creating ${outputDir}${projectName}.${outputFormat}"
+fi
