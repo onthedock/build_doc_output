@@ -10,12 +10,17 @@ usage() {
        echo " -t | --template-file <path to reference file>.docx"
        echo "                      Contains the styles used in the generated file"
        echo " -o | --output-dir <output-folder>"
+       echo " --no-changelog: Disables creating a changelog from commit messages"
 }
 
 parse_cli_args () {
        while (( "$#" ))
        do
               case "$1" in
+                     --no-changelog)
+                            includeChangeLog="false"
+                            shift
+                     ;;
                      -p|--project-name)
                             if [ -n "$2" ] && [ ${2:0:1} != "-" ]
                             then
@@ -142,7 +147,14 @@ else
 fi
 
 get_source_files "./"
-create_changelog "9999-changes.md"
+
+if [[ ${includeChangeLog} == "false" ]]
+then
+       logger "WARN" "Changelog from commit messages is not generated..."
+       logger "WARN" "  (but may be included if it is present)"
+else
+       create_changelog "9999-changes.md"
+fi
 
 if [[ -n ${outputDir} ]]
 then
