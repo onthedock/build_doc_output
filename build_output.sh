@@ -37,11 +37,11 @@ get_source_files(){
 
 case $outputFormat in
        "pdf")
-       outputFormat="pdf"
-       pdfOptions="-V colorlinks -V urlcolor=NavyBlue -V toccolor=NavyBlue -f markdown-raw_tex"
+              outputFormat="pdf"
+              pdfOptions="-V colorlinks -V urlcolor=NavyBlue -V toccolor=NavyBlue -f markdown-raw_tex"
        ;;
        "docx" | *)
-       outputFormat="docx"
+              outputFormat="docx"
               if [[ -n "${templateFile}" ]]
               then
                      useReferenceDocument="--reference-doc=\"${templateFile}\""
