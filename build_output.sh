@@ -129,7 +129,7 @@ case $outputFormat in
               outputFormat="docx"
               if [[ -n "${templateFile}" ]]
               then
-                     useReferenceDocument="--reference-doc=\"${templateFile}\""
+                     useReferenceDocument="--reference-doc=${templateFile}"
                      logger "INFO" "Using reference document ${templateFile}"
               else
                      useReferenceDocument=""
