@@ -4,12 +4,14 @@ usage() {
        echo "Basic usage:"
        echo "./build_output.sh -p <project-name>"
        echo "Options:"
-       echo " -p | --project-name <project-name>: Name of the generated file"
-       echo " -f | --output-format [ docx | pdf ]: Format of the generated file"
-       echo "                                      Defaults to 'docx'"
+       echo " -p | --project-name <project-name>: Name of the generated file (REQUIRED)"
+       echo " -f | --format [ docx | pdf ]: Format of the generated file"
+       echo "                               Default: 'docx'"
        echo " -t | --template-file <path to reference file>.docx"
        echo "                      Contains the styles used in the generated file"
+       echo "                      Default: '' (No reference document)"
        echo " -o | --output-dir <output-folder>"
+       echo "                   Default: (script folder)"
        echo " --no-changelog: Disables creating a changelog from commit messages"
 }
 
@@ -31,7 +33,7 @@ parse_cli_args () {
                                    exit 1
                             fi
                      ;;
-                     -f|--output-format)
+                     -f|--format)
                             if [ -n "$2" ] && [ ${2:0:1} != "-" ]
                             then
                                    outputFormat="${2}"
@@ -143,7 +145,7 @@ then
        logger "INFO" "Building ${projectName}.${outputFormat}..."
 else
        usage
-       logger "ERROR" "ProjectName is required as first parameter to the script or as the env variable \$projectName"
+       logger "ERROR" "ProjectName is required"
 fi
 
 get_source_files "./"

@@ -5,11 +5,18 @@ The `build_ouput.sh` uses `pandoc` to build a MS Word (`docx`) or PDF file using
 ## Usage
 
 ```bash
-build/build_ouput.sh -p | --project-name <project-name> \
-    [-f | --output-format [ docx | pdf ]] \
-    [-t | --template-file <path/to/reference-file.docx>] \
-    [-o | --output-dir <path/to/output/folder/>]
-    [--no-changelog]
+Basic usage:
+    ./build_output.sh -p <project-name>
+Options:
+    -p | --project-name <project-name>: Name of the generated file (REQUIRED)
+    -f | --format [ docx | pdf ]: Format of the generated file
+                                  Default: 'docx'
+    -t | --template-file <path to reference file>.docx
+                         Contains the styles used in the generated file
+                         Default: '' (No reference document)
+    -o | --output-dir <output-folder>
+                      Default: (script folder)
+    --no-changelog: Disables creating a changelog from commit messages
 ```
 
 The only requiered parameter is the *project name*, that is, the name of the file (without extension) to be generated.
