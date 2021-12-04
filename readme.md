@@ -36,7 +36,7 @@ By default, links are not highlighted in PDF documents generated using LaTeX. To
 pdfOptions="-V colorlinks -V urlcolor=NavyBlue -V toccolor=NavyBlue ..."
 ```
 
-To avoid backlashes to be interpreted as escape characters, `$pdfOptions` also includes the option (this may cause errors when generating the PDF file) [^2]:
+Backslashes in markdown files can be interpreted as escape characters when creating PDF files by some LaTeX engines. To skip this possibility, `$pdfOptions` also includes the option to pass markdown source as *raw* input to the LaTeX engine (no interpretation) [^2]:
 
 ```bash
 pdfOptions="... -f markdown-raw_tex"
