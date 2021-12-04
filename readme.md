@@ -21,6 +21,33 @@ Options:
 
 The only requiered parameter is the *project name*, that is, the name of the file (without extension) to be generated.
 
+## Including the script as a submodule
+
+This script [^note] can be included as a *submodule* in the Git project where you are writing documentation as mardown files; e.g., inside a `build/` folder:
+
+```bash
+project-docs/
+    .
+    ├── build
+    │   ├── build_ouput.sh
+    │   └── readme.md
+    ├── 000-cover.md
+    ├── 010-chapter-1.md
+    └── 020-chapter-2.md
+```
+
+To add it as a submodule, use:
+
+```bash
+git submodule add <remote_url> <destination_folder> 
+```
+
+E.g:
+
+```bash
+git submodule add https://github.com/onthedock/build_doc_output build
+```
+
 ## Requierements
 
 The script it's developed and tested in Linux (Debian).
@@ -88,6 +115,8 @@ create_changelog(){
        git log -10 --pretty=format:'| %h | %an | %s |' >> ${changeLogFileName}
 }
 ```
+
+[^note]: The script's repository, to be precise.
 
 [^1]: Pandoc manual [`--reference-doc`](https://pandoc.org/MANUAL.html)
 
