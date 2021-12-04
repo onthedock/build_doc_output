@@ -9,6 +9,7 @@ build/build_ouput.sh -p | --project-name <project-name> \
     [-f | --output-format [ docx | pdf ]] \
     [-t | --template-file <path/to/reference-file.docx>] \
     [-o | --output-dir <path/to/output/folder/>]
+    [--no-changelog]
 ```
 
 The only requiered parameter is the *project name*, that is, the name of the file (without extension) to be generated.
@@ -67,6 +68,8 @@ To include the markdown files in the intended order, it is recommended to name t
 ### Changelog from commit messages
 
 Instead of manually updating the change log for the document, the last 10 commits from the repo are listed and included as part of the generated document.
+
+This feature can be disabled by passing the `--no-changelog` flag.
 
 ```bash
 create_changelog(){
